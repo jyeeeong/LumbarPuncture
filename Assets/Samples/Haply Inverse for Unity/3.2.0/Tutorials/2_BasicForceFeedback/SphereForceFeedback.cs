@@ -106,6 +106,9 @@ namespace Haply.Samples.Tutorials._2_BasicForceFeedback
             var force = ForceCalculation(inverse3.CursorLocalPosition, inverse3.CursorLocalVelocity,
                 _cursorRadius, _ballPosition, _ballRadius);
 
+            Vector3 gravityCompensation = new Vector3(0f, 0.4f, 0f);
+            force += gravityCompensation;
+
             inverse3.SetCursorLocalForce(force);
         }
     }
