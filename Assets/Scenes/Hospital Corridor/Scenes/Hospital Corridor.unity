@@ -528,6 +528,7 @@ GameObject:
   - component: {fileID: 281802411}
   - component: {fileID: 281802410}
   - component: {fileID: 281802409}
+  - component: {fileID: 281802413}
   m_Layer: 4
   m_Name: Cube
   m_TagString: Untagged
@@ -557,7 +558,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281802407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f1524d5e28dc334d8bc1c1fdd2ae3d7, type: 3}
   m_Name: 
@@ -636,6 +637,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281802407}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &281802413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281802407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08e2d5da3d6879418a9a6dc042507d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 400
+  damping: 1
 --- !u!1 &308210434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,6 +1214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1573628151}
+  - {fileID: 8629024541274704841}
   m_Father: {fileID: 216727696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &804978295
@@ -1287,7 +1303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 569876435}
-  hapticOrigin: {fileID: 216727696}
+  hapticOrigin: {fileID: 8629024541274704841}
   angleText: {fileID: 1072987281}
   circleImage: {fileID: 1610798100}
 --- !u!4 &818855804
@@ -2848,7 +2864,6 @@ GameObject:
   - component: {fileID: 1263379342}
   - component: {fileID: 1263379341}
   - component: {fileID: 1263379340}
-  - component: {fileID: 1263379344}
   m_Layer: 0
   m_Name: Cursor Model
   m_TagString: Untagged
@@ -2864,9 +2879,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263379338}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0001, y: 0.000100000005, z: 0.000060000006}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.000036001205, z: 0.061258007}
+  m_LocalScale: {x: 0.0001, y: 0.0001, z: 0.0001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2000762636}
@@ -2891,7 +2906,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -2944,28 +2959,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263379338}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &1263379344
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263379338}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1269957840
 PrefabInstance:
@@ -3538,7 +3531,6 @@ GameObject:
   - component: {fileID: 1371438660}
   - component: {fileID: 1371438659}
   - component: {fileID: 1371438657}
-  - component: {fileID: 1371438661}
   m_Layer: 0
   m_Name: touch
   m_TagString: Untagged
@@ -3554,9 +3546,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371438655}
   serializedVersion: 2
-  m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -0, z: 60.739986}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.037, z: 61.253}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8629024541274704841}
@@ -3633,19 +3625,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371438655}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1371438661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1371438655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e56212d3875e634b9798ed27a7baf20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchingObjects: []
 --- !u!1 &1467803573
 GameObject:
   m_ObjectHideFlags: 0
@@ -3915,7 +3894,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1263379339}
-  - {fileID: 8629024541274704841}
   m_Father: {fileID: 804978294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1573628152
@@ -7808,6 +7786,7 @@ GameObject:
   - component: {fileID: 6318875565924828215}
   - component: {fileID: 183321978770625395}
   - component: {fileID: 7077218723803651926}
+  - component: {fileID: 7077218723803651927}
   m_Layer: 0
   m_Name: needle.001
   m_TagString: Untagged
@@ -9242,6 +9221,7 @@ GameObject:
   - component: {fileID: 1333033572169274336}
   - component: {fileID: 7573259382425811060}
   - component: {fileID: 7573259382425811061}
+  - component: {fileID: 7573259382425811062}
   m_Layer: 0
   m_Name: Male_Skeletal_T10_Geo_bones back_0.001
   m_TagString: Untagged
@@ -9735,6 +9715,7 @@ GameObject:
   - component: {fileID: 7899193452719189778}
   - component: {fileID: 7899193452719189779}
   - component: {fileID: 7899193452719189780}
+  - component: {fileID: 7899193452719189781}
   m_Layer: 0
   m_Name: Male_Skeletal_L01_Geo_bones back_0.001
   m_TagString: Untagged
@@ -11714,6 +11695,7 @@ GameObject:
   - component: {fileID: 5530135505380538723}
   - component: {fileID: 5530135505380538724}
   - component: {fileID: 5530135505380538725}
+  - component: {fileID: 5530135505380538726}
   m_Layer: 0
   m_Name: Male_Skeletal_T12_Geo_bones back_0.001
   m_TagString: Untagged
@@ -16604,6 +16586,20 @@ MonoBehaviour:
   inverse3: {fileID: 804978293}
   stiffness: 300
   damping: 1
+--- !u!114 &5530135505380538726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067336291088089211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08e2d5da3d6879418a9a6dc042507d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 400
+  damping: 1
 --- !u!1 &5539358619741626182
 GameObject:
   m_ObjectHideFlags: 0
@@ -19538,6 +19534,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7077218723803651927
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040900767102072391}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5995719743945905045, guid: 061016430d955164b9506d8d1a259919, type: 3}
 --- !u!1001 &7077486064862489245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19676,6 +19694,7 @@ GameObject:
   - component: {fileID: 7925785942089433231}
   - component: {fileID: 7925785942089433233}
   - component: {fileID: 7925785942089433234}
+  - component: {fileID: 7925785942089433235}
   m_Layer: 0
   m_Name: SpinalCord
   m_TagString: Untagged
@@ -19956,6 +19975,7 @@ GameObject:
   - component: {fileID: 9153391993827678917}
   - component: {fileID: 9153391993827678918}
   - component: {fileID: 9153391993827678919}
+  - component: {fileID: 9153391993827678920}
   m_Layer: 0
   m_Name: Male_Skeletal_T11_Geo_bones back_0.001
   m_TagString: Untagged
@@ -20615,6 +20635,20 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7433599446323401989, guid: 842b10b77bf4c0848909f6d0241cefa2, type: 3}
+--- !u!114 &7573259382425811062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776928196144518906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08e2d5da3d6879418a9a6dc042507d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 400
+  damping: 1
 --- !u!23 &7573889437158487947
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21337,6 +21371,20 @@ MonoBehaviour:
   inverse3: {fileID: 804978293}
   stiffness: 246
   damping: 1
+--- !u!114 &7899193452719189781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013539845561755492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08e2d5da3d6879418a9a6dc042507d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 400
+  damping: 1
 --- !u!23 &7902022775452889664
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21549,8 +21597,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stiffness: 200
   damping: 0.5
-  spring: 0.5
-  softness: 0
+--- !u!114 &7925785942089433235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7111561187570804285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08e2d5da3d6879418a9a6dc042507d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 100
+  damping: 0.1
 --- !u!1 &7928839877365121079
 GameObject:
   m_ObjectHideFlags: 0
@@ -22888,8 +22948,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8974447786581741939}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.03649}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22897,7 +22957,7 @@ Transform:
   - {fileID: 2985196938692035986}
   - {fileID: 6318875565924828215}
   - {fileID: 4860222849556556025}
-  m_Father: {fileID: 1573628151}
+  m_Father: {fileID: 804978294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8644210131265664844
 GameObject:
@@ -23784,13 +23844,35 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8629024541274704841}
+  - component: {fileID: 8974447786581741940}
   m_Layer: 0
-  m_Name: haptics
+  m_Name: PhysicsEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8974447786581741940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8974447786581741939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1826657de7bf30c43a5697ba2b08a2ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceEnabled: 1
+  defaultStiffness: 400
+  defaultDamping: 1
+  drag: 20
+  linearLimit: 0.001
+  limitSpring: 500000
+  limitDamper: 10000
+  collisionDetection: 0
+  touched: []
 --- !u!1 &8978655813749659697
 GameObject:
   m_ObjectHideFlags: 0
@@ -24200,6 +24282,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inverse3: {fileID: 804978293}
   stiffness: 300
+  damping: 1
+--- !u!114 &9153391993827678920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7235045542765504056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a08e2d5da3d6879418a9a6dc042507d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 400
   damping: 1
 --- !u!4 &9157642513639739193
 Transform:
