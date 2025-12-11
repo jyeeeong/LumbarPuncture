@@ -2,6 +2,7 @@
  * Copyright 2024 Haply Robotics Inc. All rights reserved.
  */
 
+// using System.Diagnostics;
 using Haply.Inverse.DeviceControllers;
 using Haply.Inverse.DeviceData;
 using UnityEngine;
@@ -29,7 +30,8 @@ namespace Haply.Samples.Tutorials._2_BasicForceFeedback
         private void SaveSceneData()
         {
             var t = transform;
-            _ballPosition = t.position;
+            // _ballPosition = t.position;
+            _ballPosition = inverse3.transform.InverseTransformPoint(t.position);
             _ballRadius = t.lossyScale.x / 2f;
 
             _cursorRadius = inverse3.Cursor.Radius;
@@ -78,6 +80,7 @@ namespace Haply.Samples.Tutorials._2_BasicForceFeedback
             var distanceVector = cursorPosition - otherPosition;
             var distance = distanceVector.magnitude;
             var penetration = otherRadius + cursorRadius - distance;
+            // Debug.Log($"Distance: {distance}, Penetration: {penetration}");
 
             if (penetration > 0)
             {
@@ -103,10 +106,22 @@ namespace Haply.Samples.Tutorials._2_BasicForceFeedback
         {
             var inverse3 = args.DeviceController;
             // Calculate the ball force
-            var force = ForceCalculation(inverse3.CursorLocalPosition, inverse3.CursorLocalVelocity,
-                _cursorRadius, _ballPosition, _ballRadius);
+            // var force = ForceCalculation(inverse3.CursorLocalPosition, inverse3.CursorLocalVelocity,
+            //     _cursorRadius, _ballPosition, _ballRadius);
 
-            inverse3.SetCursorLocalForce(force);
+            // inverse3.SetCursorLocalForce(force);
+            // Debug.Log($"Force applied to cursor: {force}");
+            
+            var controller = args.DeviceController;
+            var force = ForceCalculation(
+                controller.CursorLocalPosition,     // Inverse3 로컬
+                controller.CursorLocalVelocity,
+                _cursorRadius,
+                _ballPosition,                    // Inverse3 로컬로 변환된 공
+                _ballRadius);
+            
+            controller.SetCursorLocalForce(force); 
+            Debug.Log($"Force applied to cursor: {force}");
         }
     }
 }
