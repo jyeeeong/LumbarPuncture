@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 281802413}
   - component: {fileID: 281802414}
   - component: {fileID: 281802415}
+  - component: {fileID: 281802416}
   m_Layer: 4
   m_Name: Cube
   m_TagString: Untagged
@@ -640,7 +641,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281802407}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 021f14f1961eb6741bb710827521dd23, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -741,7 +742,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 281802407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5829ab79c5aa004fb26762153dcd152, type: 3}
   m_Name: 
@@ -750,6 +751,21 @@ MonoBehaviour:
   stiffness: 800
   damping: 1
   cursorRadius: 0.5
+--- !u!114 &281802416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 281802407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8664ed95971fd5545a01d7e897c58bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inverse3: {fileID: 1199905453}
+  stiffness: 300
+  damping: 1
 --- !u!1 &308210434
 GameObject:
   m_ObjectHideFlags: 0
@@ -4408,14 +4424,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2425e8de2f1e149a03abbbe7512cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceEnabled: 0
+  forceEnabled: 1
   stiffness: 400
   damping: 1
   drag: 20
   linearLimit: 0.001
   limitSpring: 500000
   limitDamper: 10000
-  collisionDetection: 0
+  collisionDetection: 1
   touched: []
 --- !u!1 &1441016824
 GameObject:
@@ -6149,17 +6165,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 061016430d955164b9506d8d1a259919,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.025010109
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 061016430d955164b9506d8d1a259919,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6135002
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 061016430d955164b9506d8d1a259919,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.933
+      value: -6.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 061016430d955164b9506d8d1a259919,
         type: 3}
