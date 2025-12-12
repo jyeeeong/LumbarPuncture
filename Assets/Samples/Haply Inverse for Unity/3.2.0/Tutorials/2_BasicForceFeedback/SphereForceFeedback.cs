@@ -121,7 +121,7 @@ namespace Haply.Samples.Tutorials._2_BasicForceFeedback
                 _ballRadius);
             
             controller.SetCursorLocalForce(force); 
-            Debug.Log($"Force applied to cursor: {force}");
+            // Debug.Log($"Force applied to cursor: {force}");
         }
     }
 }

@@ -1,183 +1,117 @@
-/*
- * Copyright 2024 Haply Robotics Inc. All rights reserved.
- */
-
+// using System.Diagnostics;
 using System.Threading;
 using Haply.Inverse.DeviceControllers;
 using Haply.Inverse.DeviceData;
-using Haply.Samples.Tutorials.Utils;
 using UnityEngine;
 
-
-public class TissueLayer : MonoBehaviour
+public class CubeTissueLayer : MonoBehaviour
 {
-    // must assign in inspector
     public Inverse3Controller inverse3;
-
-    [Range(0, 800)]
-    // Stiffness of the force feedback.
     public float stiffness = 500f;
-
-    [Range(0, 3)]
     public float damping = 1f;
+    public float cursorRadius = 0.002f;
 
-    #region Thread-safe cached data
-
-    /// <summary>
-    /// Represents scene data that can be updated in the Update() call.
-    /// </summary>
     private struct SceneData
     {
-        public Vector3 ballPosition;
-        public Vector3 ballVelocity;
-        public float ballRadius;
-        public float cursorRadius;
+        public Matrix4x4 cubeToInverse3;   // cube → inverse3 변환
+        public Matrix4x4 inverse3ToCube;   // inverse3 → cube 변환
+        public Vector3 halfSize;           // cube half scale (local)
     }
 
-    /// <summary>
-    /// Cached version of the scene data.
-    /// </summary>
-    private SceneData _cachedSceneData;
+    private readonly ReaderWriterLockSlim _lock = new();
+    private SceneData _cached;
 
-    private MovableObject _movableObject;
-
-    /// <summary>
-    /// Lock to ensure thread safety when reading or writing to the cache.
-    /// </summary>
-    private readonly ReaderWriterLockSlim _cacheLock = new();
-
-    /// <summary>
-    /// Safely reads the cached data.
-    /// </summary>
-    /// <returns>The cached scene data.</returns>
-    private SceneData GetSceneData()
-    {
-        _cacheLock.EnterReadLock();
-        try
-        {
-            return _cachedSceneData;
-        }
-        finally
-        {
-            _cacheLock.ExitReadLock();
-        }
-    }
-
-    /// <summary>
-    /// Safely updates the cached data.
-    /// </summary>
     private void SaveSceneData()
     {
-        _cacheLock.EnterWriteLock();
+        _lock.EnterWriteLock();
         try
         {
-            var t = transform;
-            _cachedSceneData.ballPosition = t.position;
-            _cachedSceneData.ballRadius = t.lossyScale.x / 2f;
+            // cube → inverse3
+            Matrix4x4 cubeWorld = transform.localToWorldMatrix;
+            Matrix4x4 inverse3WorldToLocal = inverse3.transform.worldToLocalMatrix;
 
-            _cachedSceneData.cursorRadius = inverse3.Cursor.Radius;
+            _cached.cubeToInverse3 = inverse3WorldToLocal * cubeWorld;
+            _cached.inverse3ToCube = cubeWorld.inverse * inverse3.transform.localToWorldMatrix;
 
-            _cachedSceneData.ballVelocity = _movableObject.Velocity;
+            _cached.halfSize = transform.localScale * 0.5f;
         }
-        finally
-        {
-            _cacheLock.ExitWriteLock();
-        }
+        finally { _lock.ExitWriteLock(); }
     }
 
-    #endregion
+    private SceneData GetSceneData()
+    {
+        _lock.EnterReadLock();
+        try { return _cached; }
+        finally { _lock.ExitReadLock(); }
+    }
 
-    /// <summary>
-    /// Saves the initial scene data cache.
-    /// </summary>
-    private void Start()
+    private void Awake()
     {
         inverse3 ??= FindFirstObjectByType<Inverse3Controller>();
-        inverse3.Ready.AddListener((device, args) => SaveSceneData());
-        _movableObject = GetComponent<MovableObject>();
+        inverse3.Ready.AddListener((a, b) => SaveSceneData());
     }
 
-    /// <summary>
-    /// Update scene data cache.
-    /// </summary>
     private void FixedUpdate()
     {
         if (inverse3.IsReady)
-        {
             SaveSceneData();
-        }
     }
 
-    /// <summary>
-    /// Subscribes to the DeviceStateChanged event.
-    /// </summary>
     private void OnEnable()
     {
         inverse3.DeviceStateChanged += OnDeviceStateChanged;
     }
 
-    /// <summary>
-    /// Unsubscribes from the DeviceStateChanged event.
-    /// </summary>
     private void OnDisable()
     {
         inverse3.DeviceStateChanged -= OnDeviceStateChanged;
-        inverse3.Release();
     }
 
-    /// <summary>
-    /// Calculates the force based on the cursor's position and another sphere position.
-    /// </summary>
-    /// <param name="cursorPosition">The position of the cursor.</param>
-    /// <param name="cursorVelocity">The velocity of the cursor.</param>
-    /// <param name="cursorRadius">The radius of the cursor.</param>
-    /// <param name="otherPosition">The position of the other sphere (e.g., ball).</param>
-    /// <param name="otherVelocity">The velocity of the other sphere (e.g., ball).</param>
-    /// <param name="otherRadius">The radius of the other sphere.</param>
-    /// <returns>The calculated force vector.</returns>
-    private Vector3 ForceCalculation(Vector3 cursorPosition, Vector3 cursorVelocity, float cursorRadius,
-        Vector3 otherPosition, Vector3 otherVelocity, float otherRadius)
+    private Vector3 ComputeForce(Vector3 cursorLocal, Vector3 cursorVel, SceneData d)
     {
-        var force = Vector3.zero;
+        // 1) cursor → cube local space
+        Vector3 cursorCube = d.inverse3ToCube.MultiplyPoint3x4(cursorLocal);
 
-        var distanceVector = cursorPosition - otherPosition;
-        var distance = distanceVector.magnitude;
-        var penetration = otherRadius + cursorRadius - distance;
+        Vector3 half = d.halfSize;
 
-        if (penetration > 0)
-        {
-            // Normalize the distance vector to get the direction of the force
-            var normal = distanceVector.normalized;
+        // 2) closest point inside cube
+        Vector3 clamped = new Vector3(
+            Mathf.Clamp(cursorCube.x, -half.x, half.x),
+            Mathf.Clamp(cursorCube.y, -half.y, half.y),
+            Mathf.Clamp(cursorCube.z, -half.z, half.z)
+        );
 
-            // Calculate the force based on penetration
-            force = normal * penetration * stiffness;
+        Vector3 diff = cursorCube - clamped;
+        float dist = diff.magnitude;
 
-            // Calculate the relative velocity
-            var relativeVelocity = cursorVelocity - otherVelocity;
+        float penetration = cursorRadius - dist;
+        if (penetration <= 0f)
+            return Vector3.zero;
 
-            // Apply damping based on the relative velocity
-            force -= relativeVelocity * damping;
-        }
+        Vector3 normalCube = (dist > 0f) ? diff.normalized : Vector3.up;
+
+        // 3) cube local normal → inverse3 local normal
+        Vector3 normalInvLocal = d.cubeToInverse3.MultiplyVector(normalCube).normalized;
+
+        // force
+        Vector3 force = normalInvLocal * (penetration * stiffness);
+        force -= cursorVel * damping;
+        Debug.Log($"Penetration: {penetration}");
 
         return force;
     }
 
-    /// <summary>
-    /// Event handler that calculates and send the force to the device when the cursor's position changes.
-    /// </summary>
-    /// <param name="sender">The Inverse3 data object.</param>
-    /// <param name="args">The event arguments containing the device data.</param>
     private void OnDeviceStateChanged(object sender, Inverse3EventArgs args)
     {
-        var inverse3 = args.DeviceController;
-        var sceneData = GetSceneData();
+        var dev = args.DeviceController;
 
-        // Calculate the moving ball force.
-        var force = ForceCalculation(inverse3.CursorLocalPosition, inverse3.CursorLocalVelocity, sceneData.cursorRadius,
-            sceneData.ballPosition, sceneData.ballVelocity, sceneData.ballRadius);
+        var d = GetSceneData();
+        Vector3 cursorLocal = dev.CursorLocalPosition;
+        Vector3 cursorVel   = dev.CursorLocalVelocity;
 
-        // Apply the force to the cursor.
-        inverse3.SetCursorLocalForce(force);
+        Vector3 force = ComputeForce(cursorLocal, cursorVel, d);
+
+        dev.SetCursorLocalForce(force);
+        Debug.Log($"Force applied to cursor: {force}");
     }
 }
-
