@@ -16,6 +16,7 @@ public class PlaneLoREffector : MonoBehaviour, IHapticEffector
     public float postRuptureStiffness = 10f;
     public bool resetOnExit = true;
 
+
     // cached in Inverse3 local (thread-safe)
     private struct Cache
     {
@@ -26,6 +27,8 @@ public class PlaneLoREffector : MonoBehaviour, IHapticEffector
     private Cache _c;
     private readonly ReaderWriterLockSlim _lock = new();
     private volatile bool ruptured = false;
+    // private volatile bool ruptured;
+    public bool IsRuptured => ruptured; // 메인 스레드에서 읽음
 
     private void Awake()
     {
