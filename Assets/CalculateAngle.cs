@@ -26,11 +26,27 @@ public class AngleDisplay : MonoBehaviour
         angleText.text = $"Angle: {linePlaneAngle:F1}°";
 
         // 색상 변경
-        if (linePlaneAngle > 80f && linePlaneAngle <= 90f)
+        // if (linePlaneAngle > 75f && linePlaneAngle <= 90f)
+        //     circleImage.color = Color.green;
+        // else if (linePlaneAngle >= 65f && linePlaneAngle <= 75f)
+        //     circleImage.color = Color.yellow;
+        // else
+        //     circleImage.color = Color.red;
+        
+        // 색상 변경 (영유아 요추천자 각도 기준)
+        if (linePlaneAngle >= 50f && linePlaneAngle <= 60f)
+        {
             circleImage.color = Color.green;
-        else if (linePlaneAngle >= 75f && linePlaneAngle <= 80f)
+        }
+        else if ((linePlaneAngle >= 40f && linePlaneAngle < 50f) ||
+                (linePlaneAngle > 60f && linePlaneAngle <= 70f))
+        {
             circleImage.color = Color.yellow;
+        }
         else
+        {
             circleImage.color = Color.red;
+        }
+
     }
 }
