@@ -1,13 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ModeManager : MonoBehaviour
 {
-    public enum AppMode { Normal = 1, OutlineOff = 2 }
+    public enum AppMode { Normal = 2, OutlineOff = 1 }
     public AppMode currentMode = AppMode.Normal;
 
-    // 꺼두었던 Outline들을 저장
+    [Header("UI")]
+    public TextMeshProUGUI modeGuideText;
+
     private List<Outline> cachedOutlines = new List<Outline>();
+
+    void Start()
+    {
+        cachedOutlines.Clear();  
+        currentMode = AppMode.Normal;
+        UpdateUIText();
+    }
+    
 
     void Update()
     {
@@ -34,11 +45,10 @@ public class ModeManager : MonoBehaviour
                 RestoreAllOutlines();
                 break;
         }
+
+        UpdateUIText();
     }
 
-    /// <summary>
-    /// 현재 활성화된 Outline만 끄고, 목록에 저장
-    /// </summary>
     void DisableAllOutlines()
     {
         cachedOutlines.Clear();
@@ -53,24 +63,38 @@ public class ModeManager : MonoBehaviour
             if (o.enabled)
             {
                 cachedOutlines.Add(o);
-                o.enabled = false; // OnDisable → 머티리얼 제거
+                o.enabled = false;
             }
         }
-
-        Debug.Log($"[ModeManager] Disabled {cachedOutlines.Count} outlines");
     }
 
-    /// <summary>
-    /// 이전에 꺼두었던 Outline만 다시 켜기
-    /// </summary>
     void RestoreAllOutlines()
     {
         foreach (var o in cachedOutlines)
         {
             if (o != null)
-                o.enabled = true; // OnEnable → 머티리얼 복구
+                o.enabled = true;
         }
-
-        Debug.Log($"[ModeManager] Restored {cachedOutlines.Count} outlines");
     }
+
+    void UpdateUIText()
+    {
+        if (modeGuideText == null) return;
+
+        switch (currentMode)
+        {
+            case AppMode.OutlineOff:
+                modeGuideText.text =
+                    "<b>[Focus mode]</b>\n" +
+                    "Press <b>2</b> to show outlines";
+                break;
+
+            case AppMode.Normal:
+                modeGuideText.text =
+                    "<b>[Guide mode]</b>\n" +
+                    "Press <b>1</b> to hide outlines";
+                break;
+        }
+    }
+
 }
