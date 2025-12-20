@@ -473,59 +473,6 @@ timestamp, elapsed_time, sample, X, Y, Z
 
 ---
 
-## 참고 자료
-
-### 공식 문서
-- [Haply Robotics 공식 문서](https://docs.haply.co/)
-- [Haply Unity 패키지 레지스트리](https://unitypackages.haply.co)
-- [Unity URP 문서](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@latest)
-- [Meta XR SDK 문서](https://developer.oculus.com/documentation/unity/)
-
-### 관련 자료
-- [요추천자 시술 가이드라인](https://www.ncbi.nlm.nih.gov/books/NBK557553/)
-- [햅틱 피드백 의료 시뮬레이션 연구](https://www.nature.com/articles/s41598-021-89445-4)
-
-### 커뮤니티
-- [Haply Robotics 포럼](https://forum.haply.co/)
-- [Unity 포럼](https://forum.unity.com/)
-
----
-
-## 라이선스
-
-이 프로젝트는 Haply Robotics Inc.의 저작권을 포함하고 있습니다.
-
-```
-Copyright 2024 Haply Robotics Inc. All rights reserved.
-```
-
-### 사용 제한
-
-- 이 시뮬레이터는 **교육 및 훈련 목적**으로 제작되었습니다
-- **실제 의료 시술을 대체할 수 없습니다**
-- 상업적 사용 전에 적절한 라이선스 확인이 필요합니다
-
----
-
-## 기여
-
-이슈 리포트나 개선 제안은 언제든지 환영합니다. 
-
-### 기여 방법
-1. 이슈 생성: 버그 리포트 또는 기능 제안
-2. Pull Request: 코드 개선 사항 제출
-3. 문서 개선: README나 주석 개선
-
----
-
-## 문의
-
-프로젝트에 대한 문의사항이 있으시면:
-- GitHub Issues를 통해 문의해주세요
-- 또는 프로젝트 관리자에게 직접 연락해주세요
-
----
-
 ## 버전 히스토리
 
 ### 현재 버전
