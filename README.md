@@ -30,7 +30,6 @@
 - **물리 기반 시뮬레이션**: 강성(stiffness)과 감쇠(damping) 파라미터를 통한 현실적인 조직 반응
 - **인대 파열 시뮬레이션**: Ligament of Recordati(LoR) 파열 감지 및 CSF 드립 효과
 - **각도 측정 시스템**: 바늘 삽입 각도 모니터링 및 피드백
-- **안전 구역 표시**: L3-L4, L4-L5 interspace 시각화
 - **위험 경고 시스템**: 뼈 접촉 등 위험 상황 감지 및 알림
 
 ---
@@ -45,7 +44,6 @@
 
 ### 🧬 조직 상호작용
 
-- **CubeTissueLayer**: 큐브 형태의 조직과의 충돌 감지 및 힘 계산
 - **PhysicsHapticEffector**: Unity Physics 엔진과 햅틱 디바이스 간 동기화
 - **HapticMaterial**: 조직별 맞춤형 햅틱 속성 (강성, 감쇠)
 
@@ -208,8 +206,6 @@ Unity가 프로젝트를 열면 Package Manager가 자동으로 필요한 패키
 LumbarPuncture/
 ├── Assets/
 │   ├── CalculateAngle.cs          # 각도 계산 및 표시
-│   ├── CubeForceEffector.cs       # 큐브 형태 힘 이펙터
-│   ├── CubeForceFeedback.cs       # 큐브 피드백 시스템
 │   ├── DripController.cs          # CSF 드립 컨트롤러
 │   ├── GameManager.cs             # 게임 상태 관리
 │   ├── HapticForceManager.cs      # 햅틱 힘 통합 관리
@@ -224,8 +220,6 @@ LumbarPuncture/
 │   ├── SensorDataLoader.cs        # 센서 데이터 로더
 │   ├── SphereForceDrop.cs         # 구 형태 힘 드롭
 │   ├── SphereForceEffector.cs     # 구 형태 힘 이펙터
-│   ├── TissueLayer.cs             # 조직층 (구 버전)
-│   ├── CubeTissueLayer.cs         # 큐브 조직층 (현재 사용)
 │   ├── WarningUI.cs               # 경고 UI 시스템
 │   │
 │   ├── Data/
@@ -384,13 +378,8 @@ Vector3 force = SensorDataLoader.GetInterpolatedForce(dataSet, 1.5f);
 
 | 키 | 기능 |
 |---|---|
-| `Space` | 햅틱 피드백 활성화/비활성화 토글 |
-| `C` | 충돌 감지 활성화/비활성화 토글 |
-| `↑` | 물리 주파수 증가 (+50Hz) |
-| `↓` | 물리 주파수 감소 (-100Hz 또는 /2) |
 | `1` | Focus 모드 (아웃라인 숨김) |
 | `2` | Guide 모드 (아웃라인 표시) |
-| `ESC` | 플레이 모드 종료 |
 
 ---
 
@@ -455,7 +444,6 @@ timestamp, elapsed_time, sample, X, Y, Z
 
 2. **디버그 로그 비활성화**
    - `PhysicsHapticEffector`의 디버그 로그 주석 처리
-   - `CubeTissueLayer`의 `Debug.Log` 제거
 
 3. **씬 최적화**
    - 불필요한 GameObject 비활성화
