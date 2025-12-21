@@ -314,21 +314,6 @@ Ligament of Recordati(인대)를 평면으로 시뮬레이션하는 컴포넌트
 2. Transform의 `up` 방향이 인대의 법선 방향
 3. `RuptureToDrip`과 연결하여 CSF 드립 효과 트리거
 
-### CubeTissueLayer
-
-큐브 형태의 조직과 햅틱 커서 간 상호작용을 처리합니다.
-
-**주요 기능:**
-- 큐브 내부 침투 감지
-- 침투 깊이에 따른 힘 계산
-- 상대 속도 기반 감쇠 적용
-- 스레드 안전한 변환 행렬 캐싱
-
-**파라미터:**
-- `stiffness`: 조직 강성 (500)
-- `damping`: 감쇠 계수 (1)
-- `cursorRadius`: 커서 반경 (0.002m)
-
 ### SensorDataLoader
 
 CSV 형식의 센서 데이터를 로드하고 분석하는 유틸리티 클래스입니다.
